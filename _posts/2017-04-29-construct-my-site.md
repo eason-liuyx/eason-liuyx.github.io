@@ -13,7 +13,7 @@ date: 2017-04-29
 
 - 下载GitHub客户端
 
-下载*GitHub Desktop*客户端，可进行repo本地编辑后`commit`到GitHub网站。
+下载*GitHub Desktop*客户端，可进行repo本地编辑后`commit`到GitHub网站。当然，可以直接用git命令进行操作。
 
 - 下载Atom编辑器
 
