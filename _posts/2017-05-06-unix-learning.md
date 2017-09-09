@@ -7,7 +7,7 @@ date: 2017-05-06
 最近在学习《the design of the unix operating systems》，讲解形成操作系统基础（`the kernel`）的内部算法和架构，以及它们与编程人员接口的关系。阅读本书，可以对unix操作系统的内核工作原理有比较深刻的理解。本文记录学习心得，后续可能还有系列记录文章。
 
 首先看看本书的目录
-> - chapter 1 General overview of the system
+>- chapter 1 General overview of the system
 - chapter 2 Introduction to the kernel
 - chapter 3 The buffer cache
 - chapter 4 Internal representation of files
@@ -48,7 +48,7 @@ Unix操作系统的流行得益于一下几个因素：
 应用程序与kernel通过`system calls`进行交互。很多提供系统高级视图的应用子系统和程序，如`shell`，`vim`等，其实都是利用kernel提供的底层服务。
 
 ### 用户相关
-#### file system
+#### **file system**
 文件系统特征：
 - 分层结构
 - 文件数据的统一对待
@@ -66,7 +66,7 @@ Unix操作系统的流行得益于一下几个因素：
 
 `device`也被系统作为文件对待。
 
-#### processing environment
+#### **processing environment**
 >`A program` is an executable file, and `a process` is an instance of the program in execution.
 
 上面这句话是理解程序和进程区别所在的关键，即`program`是一个可执行的文件，而`process`是程序在执行中的一个实例。
@@ -77,14 +77,14 @@ Unix操作系统的流行得益于一下几个因素：
 
 `shell`是一个用户程序，而不是内核程序。
 
-#### building block primitives
+#### **building block primitives**
 Unix系统提供操作系统原语也便用户利用小的、模块化的程序作为建立复杂程序的构件。
 - `redirect I/O`，如`ls > output`, `mail mjb < letter`等。
 - `pipe`，如`grep main a.c b.c | wc -l`中`|`就是pipe操作。
 
 pipes的使用可以避免临时文件的产生。
 
-#### operating system services
+#### **operating system services**
 kernel提供的服务有
 - 控制进程的执行，如创建、终止或挂起、通信
 - 公平调度进程在cpu上的执行，`time-shared`的方式
@@ -92,5 +92,19 @@ kernel提供的服务有
 - 为用户数据的高效存储和检索分配`secondary memory`
 - 允许受控进程访问外围设备，如终端、磁盘驱动器、硬盘驱动器、网络设备等
 
-#### assumptions about hardware
-`process`的执行分成两个等级：`user model`和`kernel model`。
+#### **assumptions about hardware**
+`process`的执行分成两个等级：`user model`和`kernel model`。硬件只从这两个model观察执行状态。
+
+##### **interrupts and exception**
+interrupts是由外围设备或系统时钟中断cpu，exception是由process引发未期事件。
+
+##### **processor execution levels**
+通过设置处理器执行等级，可以有效屏蔽低等级的interrupts，而只允许高等级的interrupts。
+
+##### **memory management**
+编译器产生virtual addresses，应用程序执行时，内核会根据机器硬件进行virtual to physical地址转换。
+
+# 总结
+本章描述了Unix系统的整体架构，process在`user mode`和`kernel mode`的关系，以及内核关于硬件的假设。通过`system calls`构建小program，然后通过`pipes`和`I/O redirection`结合这些小program形成更智能的处理。
+
+除了system calls，内核还负责用户团体的一般事务，如控制进程调度、管理主内存中的进程的存储和保护、处理中断、管理文件和设备、关注系统错误条件。
