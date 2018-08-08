@@ -23,3 +23,16 @@ Push you local changes to the fork
 
 Create a push request
   1. git request-pull start(commitid) URL(your fork) end(default last commitid)
+  or
+  1. git request-pull tag_old URL tag_new
+  
+Push Tag
+--------
+Add a tag with comment
+  1. git tag -a tagname -m comment
+  
+Push tag to remote
+  1. git push origin tagname
+
+Delete a tag
+  1. git tag -d tagname
