@@ -108,3 +108,5 @@ interrupts是由外围设备或系统时钟中断cpu，exception是由process引
 本章描述了Unix系统的整体架构，process在`user mode`和`kernel mode`的关系，以及内核关于硬件的假设。通过`system calls`构建小program，然后通过`pipes`和`I/O redirection`结合这些小program形成更智能的处理。
 
 除了system calls，内核还负责用户团体的一般事务，如控制进程调度、管理主内存中的进程的存储和保护、处理中断、管理文件和设备、关注系统错误条件。
+
+这句话是为了测试用，请忽略。
